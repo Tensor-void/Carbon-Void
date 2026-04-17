@@ -835,9 +835,7 @@ NAV_HERO_HTML = """
 </div>
 """
 
-with gr.Blocks(
-    title="Carbon Emission Analyzer",
-    css="""
+APP_CSS = """
     .gradio-container {
         background: radial-gradient(1000px 420px at 80% -10%, #3f1115 0%, #121214 45%, #0a0a0b 100%);
         min-height: 100vh;
@@ -1156,7 +1154,9 @@ with gr.Blocks(
 
     footer { display: none !important; }
     """
-) as demo:
+
+
+with gr.Blocks(title="Carbon Emission Analyzer") as demo:
 
     with gr.Column(elem_classes=["app-shell"]):
         gr.HTML(NAV_HERO_HTML)
@@ -1282,4 +1282,5 @@ with gr.Blocks(
     )
 
 if __name__ == "__main__":
-    demo.launch(share=False)
+    port = int(os.getenv("PORT", "7860"))
+    demo.launch(server_name="0.0.0.0", server_port=port, css=APP_CSS)
